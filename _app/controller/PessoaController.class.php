@@ -14,19 +14,19 @@
 class PessoaController {
 
     // nao é necessario criar um construtor
-    function add(Pessoa $pessoa) {
+    function gravar(Pessoa $pessoa) {
         $pessoaDAO = new PessoaDAO();
-        $pessoaDAO->adicionarPessoa($pessoa);
+        return $pessoaDAO->gravar($pessoa);
     }
 
-    function edit(Pessoa $pessoa) {
+    function alterar(Pessoa $pessoa) {
         $pessoaDAO = new PessoaDAO();
-        return $pessoaDAO->atualizarPessoa($pessoa);
+        return $pessoaDAO->alterar($pessoa);
     }
 
     function remove($pessoaId) {
         $pessoaDAO = new PessoaDAO();
-        $pessoaDAO->removerPessoa($pessoaId);
+        $pessoaDAO->remover($pessoaId);
     }
 
     function desativar($pessoaId) {
