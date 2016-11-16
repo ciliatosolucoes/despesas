@@ -13,14 +13,14 @@
             include('cabecalho.php');
             ?>
 
-            <section id = "corpo">
-                <article id = "noticia-principal">
-                    <header id = "cabecalho-artigo">
+            <section id="corpo">
+                <article id="noticia-principal">
+                    <header id="cabecalho-artigo">
                         <hgroup>
                             <h3>Inicio > Home</h3>
                             <h2>por {seu nome}</h2>
 
-                            <h3 class = "direita">Atualizado em 30/Setembro/2016</h3>
+                            <h3 class="direita">Atualizado em 30/Setembro/2016</h3>
 
                         </hgroup>
                     </header>

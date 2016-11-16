@@ -14,24 +14,30 @@
 class PessoaDAO extends Conn {
 
     private $Conn;
-    private $Result;
     private $Read;
 
     public function PessoaDAO() {
         $this->Conn = parent::getConn();
     }
 
-    public function adicionarCliente(Pessoa $pessoa) {
+    public function gravar(Pessoa $pessoa) {
         $QrCreate = "INSERT INTO pessoa(nome, endereco, telefone) VALUES(?, ?, ?)";
         $Create = $this->Conn->prepare($QrCreate);
 
-        $Create->bindParam(1, $pessoa->getNome(), PDO::PARAM_STR);
-        $Create->bindParam(2, $pessoa->getEndereco(), PDO::PARAM_STR);
+        $nome = $pessoa->getNome();
+        $endereco = $pessoa->getEndereco();
+        $telefone = $pessoa->getTelefone();
 
-        return $this->Conn->getConn()->lastInsertId();
+        $Create->bindParam(1, $nome, PDO::PARAM_STR);
+        $Create->bindParam(2, $endereco, PDO::PARAM_STR);
+        $Create->bindParam(3, $telefone, PDO::PARAM_STR);
+
+        $Create->execute();
+
+        return $this->Conn->lastInsertId();
     }
 
-    public function atualizarPessoa(Pessoa $pessoa) {
+    public function alterar(Pessoa $pessoa) {
         $QrCreate = "UPDATE Pessoa SET nome = ? , endereco = ? , telefone= ?  WHERE codigo=?";
         $Create = $this->Conn->prepare($QrCreate);
 
@@ -50,7 +56,7 @@ class PessoaDAO extends Conn {
     }
 
     public function getPessoas() {
-        $Select = " Select codigo, nome, endereco, telefone from pessoa order by nome";
+        $Select = " Select codigo, nome, endereco, telefone from pessoa order by codigo";
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($Select);
         $this->Read->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Pessoa");
@@ -59,7 +65,7 @@ class PessoaDAO extends Conn {
     }
 
     public function getPessoa($codigo) {
-        $Select = " Select codigo, nome, endereco, telefone from pessoa WHERE codigo = ? order by nome";
+        $Select = " Select codigo, nome, endereco, telefone from pessoa WHERE codigo = ? order by codigo";
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($Select);
         $this->Read->bindParam(1, $codigo);
