@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 form {
-    width: 500px;
-    margin:auto;
+    width: 200px;
+    margin-top:0;
 }
 
 input, textArea{

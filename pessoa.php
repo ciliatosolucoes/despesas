@@ -11,6 +11,7 @@
             <!--Cabeçalho da página-->
             <?php
             include('cabecalho.php');
+            require('verifica.php');
             ?>
             <body>
                 <?php

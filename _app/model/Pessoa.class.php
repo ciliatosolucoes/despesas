@@ -13,14 +13,10 @@
  */
 class Pessoa {
 
-    public $codigo;
-    public $nome;
-    public $endereco;
-    public $telefone;
-
-    function __construct() {
-        
-    }
+    private $codigo;
+    private $nome;
+    private $endereco;
+    private $telefone;
 
     function getCodigo() {
         return $this->codigo;

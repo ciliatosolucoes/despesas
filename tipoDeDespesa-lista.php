@@ -17,53 +17,46 @@
                 <?php
                 require "_app/Config.inc.php";
                 $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-                $pessoaC = new PessoaController();
+                $tipoDeDespesaC = new TipoDeDespesaController();
 
                 if (isset($post)) {
+                    var_dump($post);
+
                     $codigo = $post['codigo'];
-                    $nome = $post['nome'];
-                    $endereco = $post['endereco'];
-                    $telefone = $post['telefone'];
+                    $descricao = $post['descricao'];
 
                     if ($codigo > 0) {
-                        $pessoa = $pessoaC->getPessoa($codigo);
+                        $tipoDeDespesa = $tipoDeDespesaC->getTipoDeDespesa($codigo);
                     } else {
-                        $pessoa = new Pessoa();
+                        $tipoDeDespesa = new TipoDeDespesa();
                     }
 
-                    $pessoa->setNome($nome);
-                    $pessoa->setEndereco($endereco);
-                    $pessoa->setTelefone($telefone);
+                    $tipoDeDespesa->setDescricao($descricao);
 
-                    if ($pessoaC->edit($pessoa) > 0) {
-                        echo "Pessoa Atualizada com Sucesso!";
+                    if ($tipoDeDespesaC->edit($tipoDeDespesa) > 0) {
+                        echo "Tipo de Despesa Atualizada com Sucesso!";
                     }
                 }
 
-                $pessoas = $pessoaC->getListaPessoas();
-                $total = count($pessoas);
+                $tiposDeDespesas = $tipoDeDespesaC->getTiposDeDespesas();
+                $total = count($tiposDeDespesas);
                 ?>
 
                 <table id="tabelaspec" width="85%" border="0" cellspacing="2" cellpadding="0">
                     <tr>
-                        <td colspan="5"><a href="pessoa.php?codigo=0"> Inserir Nova Pessoa </a> </td>
+                        <td colspan="5"><a href="tipodedespesa.php?codigo=0"> Novo </a> </td>
                     </tr>
                     <tr>
                         <th>Código</th>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Telefone</th>
+                        <th>Descrição</th>
                     </tr>
-
                     <?php
                     if ($total > 0) {
-                        foreach ($pessoas as $p) {
+                        foreach ($tiposDeDespesas as $p) {
                             echo "<tr>";
                             echo "<td> {$p->getCodigo()}</td>";
-                            echo "<td> {$p->getNome()}</td>";
-                            echo "<td> {$p->getEndereco()}</td>";
-                            echo "<td> {$p->getTelefone()}</td>";
-                            echo "<td> <a href='pessoa.php?codigo={$p->getCodigo()}'>Editar</a></td>";
+                            echo "<td> {$p->getDescricao()}</td>";
+                            echo "<td> <a href='tipoDeDespesa.php?codigo={$p->getCodigo()}'>Editar</a></td>";
                             echo "</tr>";
                         }
                     }
