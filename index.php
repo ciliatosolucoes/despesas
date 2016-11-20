@@ -15,18 +15,31 @@
             require "_app/Config.inc.php";
 
             $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+            $resposta = "";
             if (isset($post)) {
                 if (session_status() !== PHP_SESSION_ACTIVE) {
                     session_start();
                 }
 
-                $usuarioC = new UsuarioController();
+                if (!isset($_SESSION['login'])) {
+                    $usuarioC = new UsuarioController();
 
-                $login = $post['login'];
-                $senha = $post['senha'];
-                $usuario = $usuarioC->logar($login, $senha);
-                $_SESSION['login'] = $usuario->getLogin();
-                echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=index.php'>";
+                    $login = $post['login'];
+                    $senha = $post['senha'];
+                    $usuario = $usuarioC->logar($login, $senha);
+
+                    if ($usuario) {
+                        $_SESSION['login'] = $usuario->getLogin();
+                        echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=index.php'>";
+                        $resposta = "<p class='respostaPos'>Login efetuado com sucesso.<p>";
+                    } else {
+                        $resposta = "<p class='respostaNeg'>Usuário ou senha incorretos.<p>";
+                    }
+                }else{
+                    $resposta = "<p class='respostaNeg'>Efetue logout no usuário {$_SESSION['login']} antes de logar em outro usuário.<p>";
+                    
+                }
+                    
             }
             ?>
 
@@ -43,7 +56,11 @@
                                 <label for="senha"> Senha:</label><input type="password" id="senha" name="senha" maxlength="20" placeholder="Senha"/>
                                 <input type="submit" id="btnEnviar" value="Logar"/>
                             </form>
-
+                            <?php
+                            if (!empty($resposta)) {
+                                echo $resposta;
+                            }
+                            ?>
                         </hgroup>
                     </header>
                     <h2>Html</h2>

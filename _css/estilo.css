@@ -39,6 +39,20 @@ header#cabecalho h1{
     text-align: center;
 }
 
+.respostaNeg{
+    text-indent: 0px;
+    margin:0px;
+    padding: 0px;
+    color:red;
+}
+
+.respostaPos{
+    text-indent: 0px;
+    margin:0px;
+    padding: 0px;
+    color:blue;
+}
+
 /* Menu */
 nav#menu h1{
     /*Ocultar o texto Menu Principal*/
